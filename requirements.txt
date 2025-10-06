@@ -1,0 +1,10 @@
+streamlit
+pandas
+numpy
+sklearn
+tensorflow
+xgboost
+matplotlib
+mysql.connector
+random
+time
