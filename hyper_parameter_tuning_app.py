@@ -117,6 +117,7 @@ xgb_search_size = st.sidebar.slider("XGBoost Random Search Iterations", 1, 21, 3
 
 # DB Connection
 db_config = st.secrets["mysql"]
+st.write(db_config)
 db = mysql.connector.connect(
     #host="localhost", user="", password="sdfs", database="AIProject"
     db_config
