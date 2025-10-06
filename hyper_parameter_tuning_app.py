@@ -118,11 +118,13 @@ xgb_search_size = st.sidebar.slider("XGBoost Random Search Iterations", 1, 21, 3
 # DB Connection
 db_config = st.secrets["mysql"]
 st.write(db_config)
-db = mysql.connector.connect(
-    #host="localhost", user="", password="sdfs", database="AIProject"
-    db_config
-)
-
+try:
+    db = mysql.connector.connect(
+        db_config
+    )
+except mysql.connector.Error as err:
+    st.error(f"Error connecting to database: {err}")
+    st.stop()
 df_t = pd.read_sql(
     "SELECT transfermarkt_id, transfer_date, market_value FROM player_transfer_history ORDER BY transfermarkt_id, transfer_date", db
 )
