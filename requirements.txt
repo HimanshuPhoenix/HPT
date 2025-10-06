@@ -6,5 +6,3 @@ tensorflow
 xgboost
 matplotlib
 mysql.connector
-random
-time
