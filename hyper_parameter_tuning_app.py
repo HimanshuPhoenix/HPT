@@ -116,15 +116,14 @@ xgb_search_size = st.sidebar.slider("XGBoost Random Search Iterations", 1, 21, 3
 
 
 # DB Connection
-db_config = st.secrets["mysql"]
-#st.write(db_config["user"])
 try:
     db = mysql.connector.connect(
-        host=db_config["host"], user=db_config["user"], password=db_config["password"], database=db_config["database"]
+        host="localhost", user="root", password="yahoonet", database="AIProject"
     )
 except mysql.connector.Error as err:
     st.error(f"Error connecting to database: {err}")
     st.stop()
+
 df_t = pd.read_sql(
     "SELECT transfermarkt_id, transfer_date, market_value FROM player_transfer_history ORDER BY transfermarkt_id, transfer_date", db
 )
@@ -646,7 +645,7 @@ if st.sidebar.button("Click here to start training and evaluation"):
             INSERT INTO hyper_parameter_results (`n_steps`, `n_future`, `LSTM_Iterations`, `LSTM_Epoch_Count`, `XGBoost_Iterations`, `Best_XGBoost_params`, `XGBoost_RSME`, `Best_LSTM_params`, `Val_Loss`) 
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
             """, (n_steps, n_future, lstm_search_size, lstm_search_epoches, xgb_search_size,
-            str(best_xgb_params), best_xgb_rmse, str(best_lstm_params), best_lstm_loss))
+            str(best_xgb_params), (best_xgb_rmse), str(best_lstm_params), (best_lstm_loss)))
             db.commit()
             st.success("Best hyperparameter tuning results saved to database.")
         except Exception as e:
