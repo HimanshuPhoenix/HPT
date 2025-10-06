@@ -118,6 +118,7 @@ xgb_search_size = st.sidebar.slider("XGBoost Random Search Iterations", 1, 21, 3
 # DB Connection
 db_config = st.secrets["mysql"]
 st.write(db_config)
+st.write(db_config["user"])
 try:
     db = mysql.connector.connect(
         db_config
