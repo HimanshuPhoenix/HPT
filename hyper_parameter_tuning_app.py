@@ -140,6 +140,7 @@ create table if not exists hyper_parameter_results (id int primary key auto_incr
 run_date datetime default now(), n_steps int, n_future int, LSTM_Iterations int, LSTM_Epoch_Count int, 
 XGBoost_Iterations int, Best_XGBoost_params varchar (200), XGBoost_RSME float, Best_LSTM_params varchar(200), Val_Loss float);""")
 db.commit()
+db.close()
 df = df_t.merge(
     df_f[
         [
@@ -642,6 +643,13 @@ if st.sidebar.button("Click here to start training and evaluation"):
         st.write(f"✅ Best XGBoost RMSE: {df_xgb.loc[best_xgb_idx, 'rmse']:.4f} at iteration {best_xgb_idx+1}")
 
         # Save best results to DB
+        try:
+            db = mysql.connector.connect(
+                host=db_config["host"], user=db_config["user"], password=db_config["password"], database=db_config["database"]
+            )
+        except mysql.connector.Error as err:
+            st.error(f"Error connecting to database: {err}")
+            st.stop()
         try:
             cursor.execute("""
             INSERT INTO hyper_parameter_results (`n_steps`, `n_future`, `LSTM_Iterations`, `LSTM_Epoch_Count`, `XGBoost_Iterations`, `Best_XGBoost_params`, `XGBoost_RSME`, `Best_LSTM_params`, `Val_Loss`) 
