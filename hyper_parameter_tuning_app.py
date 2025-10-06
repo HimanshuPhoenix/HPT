@@ -117,11 +117,10 @@ xgb_search_size = st.sidebar.slider("XGBoost Random Search Iterations", 1, 21, 3
 
 # DB Connection
 db_config = st.secrets["mysql"]
-st.write(db_config)
-st.write(db_config["user"])
+#st.write(db_config["user"])
 try:
     db = mysql.connector.connect(
-        db_config
+        host=db_config["host"], user=db_config["user"], password=db_config["password"], database=db_config["database"]
     )
 except mysql.connector.Error as err:
     st.error(f"Error connecting to database: {err}")
