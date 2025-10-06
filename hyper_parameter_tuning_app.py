@@ -643,6 +643,7 @@ if st.sidebar.button("Click here to start training and evaluation"):
         st.write(f"✅ Best XGBoost RMSE: {df_xgb.loc[best_xgb_idx, 'rmse']:.4f} at iteration {best_xgb_idx+1}")
 
         # Save best results to DB
+        #re-connect to db as streanlit cloud takes a long time to execute the code.
         try:
             db = mysql.connector.connect(
                 host=db_config["host"], user=db_config["user"], password=db_config["password"], database=db_config["database"]
