@@ -6,3 +6,4 @@ tensorflow
 xgboost
 matplotlib
 mysql.connector
+streamlit-ext
