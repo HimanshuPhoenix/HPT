@@ -249,9 +249,28 @@ df = df.sort_values(["transfermarkt_id", "transfer_date"])
 player_options = df.sort_values("player_name").apply(
     lambda row: f"{row['player_name']} ({row['player_id']})", axis=1
 ).unique().tolist()
+
+# To Load Player Profile Pic from Transfermrkt
+def get_player_image_url(player_id):
+    url = f"https://www.transfermarkt.com/-/profil/spieler/{player_id}"
+    headers = {"User-Agent": "Mozilla/5.0"}
+    response = requests.get(url, headers=headers)
+    if response.status_code != 200:
+        return None
+
+    soup = BeautifulSoup(response.text, "html.parser")
+    img_tag = soup.find("img", class_="data-header__profile-image")
+    if img_tag and "src" in img_tag.attrs:
+        return img_tag["src"]
+    return None
+
 if mode=="Select Existing Player":
     player_choice = st.sidebar.selectbox("Select Player", player_options)
     pid = int(player_choice.split("(")[-1].replace(")", ""))
+    # To Load Player Profile Pic from Transfermrkt
+    img_url = get_player_image_url(pid)
+    if img_url:
+        st.sidebar.image(img_url, width=160, caption=player_choice)
 
 # Compute mean and max for comparison table
 feature_means = df[
