@@ -15,7 +15,8 @@ import streamlit_ext as ste
 import json
 import time
 import plotly.graph_objects as go
-
+import requests
+from bs4 import BeautifulSoup
 #To track script re-run
 #st.write("Script re-run at:", pd.Timestamp.now())
 
