@@ -8,3 +8,4 @@ matplotlib
 mysql.connector
 streamlit-ext
 plotly
+bs4
