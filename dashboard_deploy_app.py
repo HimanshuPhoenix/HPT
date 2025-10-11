@@ -270,8 +270,10 @@ if mode=="Select Existing Player":
     pid = int(player_choice.split("(")[-1].replace(")", ""))
     # To Load Player Profile Pic from Transfermrkt
     img_url = get_player_image_url(pid)
-    if img_url:
+    try:
         st.sidebar.image(img_url, width=160, caption=player_choice)
+    except Exception as e
+        st.write(f"Error while loading player profile picture:{e}")
 
 # Compute mean and max for comparison table
 feature_means = df[
