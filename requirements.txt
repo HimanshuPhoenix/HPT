@@ -7,3 +7,4 @@ xgboost
 matplotlib
 mysql.connector
 streamlit-ext
+plotly
