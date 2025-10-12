@@ -254,7 +254,7 @@ player_options = df.sort_values("player_name").apply(
 # To Load Player Profile Pic from Transfermrkt
 def get_player_image_url(player_id):
     url = f"https://www.transfermarkt.com/-/profil/spieler/{player_id}"
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+    headers = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64)"}
     response = requests.get(url, headers=headers)
     if response.status_code != 200:
         return None
