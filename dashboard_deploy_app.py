@@ -1246,6 +1246,6 @@ if mode=="Select Existing Player":
         player_image.image(img_url, width=160, caption=player_choice)
     except Exception as e:
         DEFAULT_PLAYER_IMG1 = "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
-        player_image.image(DEFAULT_PLAYER_IMG1, width=160, caption=f"Error Loading image: {e}")
+        player_image.image(DEFAULT_PLAYER_IMG1, width=160, caption=f"Error Loading image")
 # Close DB connection
 db.close()
