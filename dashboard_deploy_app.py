@@ -269,12 +269,9 @@ if mode=="Select Existing Player":
     player_choice = st.sidebar.selectbox("Select Player", player_options)
     pid = int(player_choice.split("(")[-1].replace(")", ""))
     # To Load Player Profile Pic from Transfermrkt
-    img_url = get_player_image_url(pid)
-    try:
-        st.sidebar.image(img_url, width=160, caption=player_choice)
-    except Exception as e:
-        st.write(f"Error while loading player profile picture:{e}")
-
+    DEFAULT_PLAYER_IMG = "https://i.gifer.com/ZKZx.gif"
+    player_image=st.sidebar.image(DEFAULT_PLAYER_IMG, width=160, caption="Loading Player Picture")
+    
 # Compute mean and max for comparison table
 feature_means = df[
         [
@@ -1243,6 +1240,11 @@ if 'generate_custom_forecast' in globals():
             with placeholder:
                 st.empty()
     prog_ui.progress(7/7)
-
+if mode=="Select Existing Player":
+    img_url = get_player_image_url(pid)
+    try:
+        player_image.image(img_url, width=160, caption=player_choice)
+    except Exception as e:
+        st.write(f"Error: {e}")
 # Close DB connection
 db.close()
