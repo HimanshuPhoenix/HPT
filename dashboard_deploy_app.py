@@ -512,6 +512,7 @@ def retrain_final_seq2seq(X_train, decoder_input_train, y_train, X_val, decoder_
     return train_model, encoder_model_inf, decoder_model_inf, history
 
 # Retrain final XGBoost per step using best params if present, else defaults
+@st.cache_resource
 def retrain_final_xgboost_per_step(X_train_flat, y_train, X_val_flat, y_val, best_params_per_step=None):
     xgb_models_final = []
     n_future_local = y_train.shape[1]
